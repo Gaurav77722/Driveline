@@ -10,14 +10,19 @@ public class WheelController : MonoBehaviour
     [SerializeField] WheelCollider frontRight;
     [SerializeField] WheelCollider backLeft;
     [SerializeField] WheelCollider backRight;
+    
+    [SerializeField] Transform frontLeftTransform;
+    [SerializeField] Transform frontRightTransform;
+    [SerializeField] Transform backLeftTransform;
+    [SerializeField] Transform backRightTransform;
 
     public float acceleration = 500f;
     public float breakingForce = 300f;
     public float maxTurnAngle = 10f;
     
-    private float currentAcceleration = 0f;
-    private float currentBreakingForce = 0f;
-    private float currentTurnAngle = 0f;
+    public float currentAcceleration = 0f;
+    public float currentBreakingForce = 0f;
+    public float currentTurnAngle = 0f;
 
     private int currentMovementValue = 0;
 
@@ -46,7 +51,7 @@ public class WheelController : MonoBehaviour
         
         
         // Brake
-        if (Input.GetKey(KeyCode.B))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             currentBreakingForce = breakingForce;
             currentAcceleration = 0f;
@@ -69,5 +74,23 @@ public class WheelController : MonoBehaviour
         currentTurnAngle = maxTurnAngle * Input.GetAxis("Horizontal");
         frontLeft.steerAngle = currentTurnAngle;
         frontRight.steerAngle = currentTurnAngle;
+        
+        // Update position of wheel meshes
+        UpdateWheelMesh(backLeft, backLeftTransform);
+        UpdateWheelMesh(frontLeft, frontLeftTransform);
+        UpdateWheelMesh(backRight, backRightTransform);
+        UpdateWheelMesh(frontRight, frontRightTransform);
+    }
+
+    void UpdateWheelMesh(WheelCollider wheel, Transform meshTransform)
+    {
+        // Get the position of the wheelCollider in the world
+        Vector3 position;
+        Quaternion rotation;
+        wheel.GetWorldPose(out position, out rotation);
+        
+        // Set the position of the mesh
+        meshTransform.position = position;
+        meshTransform.rotation = rotation;
     }
 }
