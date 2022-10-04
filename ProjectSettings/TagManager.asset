@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Car
+<<<<<<< Updated upstream
+=======
+  - TL1
+  - TL2
+  - TL3
+  - TL4
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
