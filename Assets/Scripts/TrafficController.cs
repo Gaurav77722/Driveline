@@ -7,10 +7,10 @@ public class TrafficController : MonoBehaviour
     private GameObject TrafficLight2;
     private GameObject TrafficLight3;
     private GameObject TrafficLight4;
-    private Light [] TL1Lights;
-    private Light [] TL2Lights;
-    private Light [] TL3Lights;
-    private Light [] TL4Lights;
+    private Light[] TL1Lights;
+    private Light[] TL2Lights;
+    private Light[] TL3Lights;
+    private Light[] TL4Lights;
 
     private float timer = 40;
 
@@ -18,7 +18,13 @@ public class TrafficController : MonoBehaviour
     private bool flag2 = false;
     private bool flag3 = false;
     private bool flag4 = false;
-    
+
+
+
+    public int maxTimer = 40;
+    public int interval = 10;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +39,6 @@ public class TrafficController : MonoBehaviour
         TL3Lights = TrafficLight3.GetComponentsInChildren<Light>();
         TL4Lights = TrafficLight4.GetComponentsInChildren<Light>();
 
-
-
     }
 
     // Update is called once per frame
@@ -45,88 +49,87 @@ public class TrafficController : MonoBehaviour
         TL2Lights[1].intensity = 1000;
         TL3Lights[1].intensity = 1000;
         TL4Lights[1].intensity = 1000;
-        
+
         if (TL1Lights[0].intensity == 1000)
         {
             TL1Lights[1].intensity = 1;
         }
-        
+
         if (TL2Lights[0].intensity == 1000)
         {
             TL2Lights[1].intensity = 1;
         }
-        
+
         if (TL3Lights[0].intensity == 1000)
         {
             TL3Lights[1].intensity = 1;
         }
-        
+
         if (TL4Lights[0].intensity == 1000)
         {
             TL4Lights[1].intensity = 1;
         }
         
-        // StartCoroutine(increaseIntensity(TL1Lights));
-        // StopCoroutine(increaseIntensity(TL1Lights));
-        // StartCoroutine(increaseIntensity(TL2Lights));
-        // StartCoroutine(increaseIntensity(TL3Lights));
-        // StartCoroutine(increaseIntensity(TL4Lights));
 
-        Debug.Log(timer);
-        if (timer <= 40 && timer > 30 && flag1 == false)
+
+        timer -= Time.deltaTime;
+        if (timer < 2f)
+        {
+            timer = 39f;
+            flag1 = false;
+            flag2 = false;
+            flag3 = false;
+            flag4 = false;
+        }
+
+        trafficInterval(40, 10, timer);
+
+    }
+
+    void trafficInterval(int maxTimer, int interval, float timer)
+    {
+        if (timer <= maxTimer && timer > (maxTimer - interval) && flag1 == false)
         {
             TL1Lights[0].intensity = 1000;
-            
-            if (timer <= 31 && timer > 30 )
+
+            if (timer <= (maxTimer - interval + 1) && timer > (maxTimer - interval))
             {
-                Debug.Log("Inside + " +  timer );
                 TL1Lights[0].intensity = 1;
                 flag1 = true;
-                
+
             }
         }
-        timer -= Time.deltaTime;
-        if (timer <= 30 && timer > 20 && flag2 == false)
+        
+        if (timer <= (maxTimer - interval) && timer > (maxTimer - (2 * interval)) && flag2 == false)
         {
             TL2Lights[0].intensity = 1000;
-            //timer -= Time.deltaTime;
-            if (timer <= 21 && timer > 20 )
+            if (timer <= (maxTimer - (2 * interval) + 1) && timer > (maxTimer - (2 * interval)))
             {
                 TL2Lights[0].intensity = 1;
                 flag2 = true;
             }
         }
         
-        if (timer <= 20 && timer > 10 && flag3 == false)
+
+        if (timer <= (maxTimer - (2 * interval)) && timer > (maxTimer - (3 * interval)) && flag3 == false)
         {
             TL3Lights[0].intensity = 1000;
-            //timer -= Time.deltaTime;
-            if (timer <= 11 && timer > 10 )
+            if (timer <= (maxTimer - (3 * interval) + 1) && timer > (maxTimer - (3 * interval)))
             {
                 TL3Lights[0].intensity = 1;
                 flag3 = true;
             }
         }
         
-        if (timer <= 10 && flag4 == false)
+
+        if (timer <= (maxTimer - (3 * interval)) && flag4 == false)
         {
             TL4Lights[0].intensity = 1000;
-            //timer -= Time.deltaTime;
-            if (timer <= 1  )
+            if (timer <= (maxTimer - (4 * interval) + 1))
             {
-                Debug.Log("Inside");
                 TL4Lights[0].intensity = 1;
                 flag4 = true;
-                timer = 39;
             }
         }
-
     }
-
-    // IEnumerator increaseIntensity(Light [] TL1Lights)
-    // {
-    //     TL1Lights[0].intensity = 1000;
-    //     yield return new WaitForSeconds(3);
-    //     TL1Lights[0].intensity = 1;
-    // }
 }
