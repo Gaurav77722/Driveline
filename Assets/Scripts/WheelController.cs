@@ -26,40 +26,10 @@ public class WheelController : MonoBehaviour
 
     private int currentMovementValue = 0;
 
+    private bool Gear = false;
+
     private void FixedUpdate()
     {
-        // W to toggle car in forward direction and S to toggle Car in reverse direction
-        if (Input.GetKey(KeyCode.W))
-        {
-            currentMovementValue = 1;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            currentMovementValue = -1;
-        }
-        
-        // Accelerate Car
-        if (Input.GetKey(KeyCode.Space))
-        {
-            currentAcceleration = acceleration * currentMovementValue;
-        }
-        else
-        {
-            currentAcceleration = 0f;
-            rb.velocity *= 0.99f;
-        }
-        
-        
-        // Brake
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            currentBreakingForce = breakingForce;
-            currentAcceleration = 0f;
-        }
-        else
-        {
-            currentBreakingForce = 0f;
-        }
         
         // Acceleration for front wheels
         frontRight.motorTorque = currentAcceleration;
@@ -93,4 +63,42 @@ public class WheelController : MonoBehaviour
         meshTransform.position = position;
         meshTransform.rotation = rotation;
     }
+
+    public void accelerateCar()
+    {
+        currentAcceleration = acceleration * currentMovementValue;
+    }
+
+    public void decelerateCar()
+    {
+        currentAcceleration = 0f;
+        rb.velocity *= 0.99f;
+    }
+
+    public void toggleCarGear()
+    {
+        if (Gear == false)
+        {
+            currentMovementValue = 1;
+            Gear = true;
+        }
+        else if(Gear)
+        {
+            currentMovementValue = -1;
+            Gear = false;
+        }
+    }
+    
+
+    public void Brake()
+    {
+        currentBreakingForce = breakingForce;
+        currentAcceleration = 0f;
+    }
+
+    public void resetBrakeForce()
+    {
+        currentBreakingForce = 0f;
+    }
+    
 }
