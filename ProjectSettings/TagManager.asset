@@ -9,6 +9,12 @@ TagManager:
   - TL2
   - TL3
   - Car
+  - gasCan
+  - oilCan
+  - FLWheel
+  - FRWheel
+  - BLWheel
+  - BRWheel
   layers:
   - Default
   - TransparentFX
