@@ -4,6 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - TL1
+  - TL4
+  - TL2
+  - TL3
+  - Car
   - gasCan
   - oilCan
   - FLWheel
