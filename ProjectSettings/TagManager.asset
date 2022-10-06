@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TL1
+  - TL4
+  - TL2
+  - TL3
+  - Car
   layers:
   - Default
   - TransparentFX

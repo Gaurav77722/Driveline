@@ -8,7 +8,12 @@ public class StopSign : MonoBehaviour
 {
 
  private bool carStopped;
+ private HighScore highScore;
 
+ private void Start()
+ {
+  highScore = GameObject.Find("Score").GetComponent<HighScore>();
+ }
 
  private void OnTriggerStay(Collider other)
  {
@@ -27,10 +32,12 @@ public class StopSign : MonoBehaviour
   if (!carStopped)
   {
    Debug.Log("The car didn't stop at the stop sign!");
+   highScore.changeScore(-10);
   }
   else
   {
    Debug.Log("Car Stopped");
+   highScore.changeScore(10);
   }
 
   carStopped = false;
