@@ -1,19 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class StopSign : MonoBehaviour
 {
- private bool carStopped = false;
+
+ private bool carStopped;
+
+
  private void OnTriggerStay(Collider other)
  {
   if (other.tag == "Car")
   {
-   if (other.attachedRigidbody.velocity.magnitude*3.6f <= 1f)
-   {
-    carStopped = true;
-   }
+   
+    if (other.attachedRigidbody.velocity.magnitude * 3.6f <= 1f)
+    {
+     carStopped = true;
+    }
   }
  }
 
@@ -25,7 +30,13 @@ public class StopSign : MonoBehaviour
   }
   else
   {
-   Debug.Log("Car Stopped!");
+   Debug.Log("Car Stopped");
   }
+
+  carStopped = false;
  }
+
 }
+
+ 
+
